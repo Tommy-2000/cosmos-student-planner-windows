@@ -4,6 +4,8 @@ A time management and calendar application for students (Secondary School to Uni
 
 ## Go and achieve more with the Ka Hopena Planner app!
 
+![Screenshot]()
+
 
 * Make the most of your day with daily reminders - Reminders can help you keep on top of whatever's happening in your academia and your day-by-day schedule.
 
