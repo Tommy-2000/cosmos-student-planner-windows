@@ -1,8 +1,8 @@
-# hāmama-planner-windows
+# cosmos-student-planner-windows
 
 A time management and calendar application for students (Secondary School to University) for Windows 10.
 
-## Go and achieve more with the Ka Hopena Planner app!
+## Go and achieve more with the Cosmos Student Planner app!
 
 ![Screenshot]()
 
