@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="CosmosStudentPlanner.CreateReminderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CosmosStudentPlanner"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+
+        <Button x:Name="NavigateBack_Button" Click="NavigateBack_Click" VerticalAlignment="Top" HorizontalAlignment="Left" 
+Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+
+        <StackPanel>
+            <TextBlock Text="Create Reminder" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <TextBox x:Name="SelectEvent"
+                     Header="Select Event"
+                     Margin="0,48,0,0"
+                     MaxLength="42"
+                     Width="400"
+                     HorizontalAlignment="Right"
+                     InputScope="Text"
+                     IsSpellCheckEnabled="True"/>
+            <TimePicker x:Name="ReminderTimePicker"
+                        Header="Select time to be reminded"
+                        MinuteIncrement="10"
+                        ClockIdentifier="24HourClock"
+                        Margin="0,48,0,0"
+                        Width="400"
+                        HorizontalAlignment="Right"/>
+            <CalendarDatePicker x:Name="ReminderDatePicker"
+                                Header="Select date to be reminded"
+                                PlaceholderText="Select a date"
+                                Margin="0,48,0,0"
+                                Width="400"
+                                HorizontalAlignment="Right"/>
+
+            <ComboBox x:Name="ReminderFrequency"
+                      Header="Select frequency of reminders"
+                      Margin="0,48,0,0"
+                      HorizontalAlignment="Right"
+                      Width="400"
+                      SelectionChanged="ReminderFrequency_SelectionChanged">
+            </ComboBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Create Reminder" Margin="0,48,0,0" Click="CreateEventButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+        
+    </Grid>
+</Page>
