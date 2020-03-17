@@ -17,6 +17,3 @@ A time management and calendar application for students (Secondary School to Uni
 
 
 * Add custom lessons to your own academic timeline - Add your lessons to a personal timeline that visualises and tracks each event or deadline that you create.
-
-
-* Support for Windows 10 tablet devices.
