@@ -5,6 +5,7 @@
     xmlns:local="using:CosmosStudentPlanner"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Windows10version1803="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 6)"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -12,10 +13,26 @@
 
         <Button x:Name="NavigateBack_Button" Click="NavigateBack_Click" VerticalAlignment="Top" HorizontalAlignment="Left" 
 Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        
-        <StackPanel>
-            <TextBlock Text="Create Event" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
-            <TextBox x:Name="EventTitle"
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Name="CreateEventPanel"
+                        Margin="0,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="1000"
+                        Width="750"
+                        HorizontalAlignment="Right">
+                <TextBlock Text="Create Event" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBox Name="EventTitle"
                      Header="Event Title"
                      Margin="0,48,0,0"
                      MaxLength="42"
@@ -23,12 +40,12 @@ Style="{StaticResource NavigationBackButtonNormalStyle}"/>
                      HorizontalAlignment="Right"
                      InputScope="Text"
                      IsSpellCheckEnabled="True">
-                <TextBox.HandwritingView>
-                    <HandwritingView PlacementTarget="{Binding ElementName=EventTitle}"
+                    <Windows10version1803:TextBox.HandwritingView>
+                        <HandwritingView PlacementTarget="{Binding ElementName=EventTitle}"
                                      MaxWidth="{Binding ElementName=EventTitle, Path=Width}"/>
-                </TextBox.HandwritingView>
-            </TextBox>
-            <TextBox x:Name="EventDescription"
+                    </Windows10version1803:TextBox.HandwritingView>
+                </TextBox>
+                <TextBox Name="EventDescription"
                      Header="Event Description"
                      Margin="0,48,0,0"
                      MaxLength="280"
@@ -38,45 +55,62 @@ Style="{StaticResource NavigationBackButtonNormalStyle}"/>
                      AcceptsReturn="True"
                      IsSpellCheckEnabled="True"
                      ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <TextBox.HandwritingView>
-                    <HandwritingView PlacementTarget="{Binding ElementName=EventDescription}"
+                    <Windows10version1803:TextBox.HandwritingView>
+                        <HandwritingView PlacementTarget="{Binding ElementName=EventDescription}"
                                      MaxWidth="{Binding ElementName=EventDescription, Path=Width}"/>
-                </TextBox.HandwritingView>
-            </TextBox>
-            <ComboBox x:Name="EventType"
+                    </Windows10version1803:TextBox.HandwritingView>
+                </TextBox>
+                <ComboBox Name="EventType"
                       Header="Type of event"
                       PlaceholderText="Choose an event type"
                       Margin="0,48,0,0"
                       HorizontalAlignment="Right"
                       Width="400"
+                      DisplayMemberPath=""
                       SelectionChanged="EventType_SelectionChanged">
-            </ComboBox>
-            <CalendarDatePicker x:Name="EventDatePicker"
+                </ComboBox>
+                <CalendarDatePicker Name="EventDatePicker"
                                 Header="Event Date"
                                 PlaceholderText="Select a date"
                                 Margin="0,48,0,0"
                                 Width="400"
                                 HorizontalAlignment="Right"/>
-            <TimePicker x:Name="EventTimePicker"
+                <TimePicker Name="EventTimePicker"
                         Header="Event Time"
                         MinuteIncrement="10"
                         ClockIdentifier="24HourClock"
                         Margin="0,48,0,0"
                         Width="400"
                         HorizontalAlignment="Right"/>
-            <StackPanel x:Name="EventInkNoteContainer"
-                        Margin="0,48,0,0"
-                        Width="800"
-                        HorizontalAlignment="Right">
-                <InkCanvas x:Name="EventInkNote"/>
-                <InkToolbar x:Name="EventInkToolbar"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Create Event" Margin="0,48,0,0" Click="Create_Event_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid>
+            <Border BorderBrush="Yellow"
+                        BorderThickness="9"
+                        Margin="0,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="1000"
+                        Width="750"
+                        HorizontalAlignment="Left">
+                <StackPanel Name="EventInkNotePanel"
+                        Margin="0,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="1000"
+                        Width="750"
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="Write Event" HorizontalAlignment="Right" Margin="0,24,30,0" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <InkToolbar Name="EventInkToolbar"
                        VerticalAlignment="Bottom"
-                       Margin="10,0,10,0"
+                       Margin="10,90,10,0"
                        TargetInkCanvas="{x:Bind EventInkNote}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Create Event" Margin="0,48,0,0" Click="CreateEventButton_Click"/>
-            </StackPanel>
-        </StackPanel>
+                    <InkCanvas Name="EventInkNote" Height="700"></InkCanvas>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

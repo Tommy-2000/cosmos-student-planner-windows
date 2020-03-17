@@ -1,4 +1,5 @@
 ﻿using CosmosStudentPlanner;
+using CosmosStudentPlanner.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,6 +28,43 @@ namespace CosmosStudentPlanner
         {
             this.InitializeComponent();
      
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            NavigateBack_Button.IsEnabled = this.Frame.CanGoBack;
+        }
+
+
+
+        private void NavigateBack_Click(object sender, RoutedEventArgs e)
+        {
+            On_BackRequested();
+        }
+
+        private bool On_BackRequested()
+        {
+            if (this.Frame.CanGoBack)
+            {
+                this.Frame.GoBack();
+                return true;
+            }
+            return false;
+        }
+
+        private void BackInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            On_BackRequested();
+            args.Handled = true;
+        }
+
+        private void Create_Lesson_Click(object sender, RoutedEventArgs e)
+        {
+            using (var db = new MasterContext())
+            {
+
+
+            }
         }
     }
 }

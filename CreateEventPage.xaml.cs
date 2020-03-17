@@ -16,7 +16,15 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using CosmosStudentPlanner.MasterDataModel;
+using CosmosStudentPlanner.Model;
+using Microsoft.Graphics.Canvas;
+using System.Diagnostics;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage;
+using Windows.Graphics.Imaging;
+using Windows.Graphics.Display;
+using Windows.UI;
+using static CosmosStudentPlanner.Model.MasterContext;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,6 +38,7 @@ namespace CosmosStudentPlanner
         public CreateEventPage()
         {
             this.InitializeComponent();
+            Loaded += CreateEventPage_Loaded;
 
             Windows.UI.ViewManagement.UISettings settings =
                 new Windows.UI.ViewManagement.UISettings();
@@ -46,38 +55,20 @@ namespace CosmosStudentPlanner
 
         }
 
-        private void CreateEventButton_Click(object sender, RoutedEventArgs e)
+        private void CreateEventPage_Loaded(object sender, RoutedEventArgs e)
         {
-            using (var db = new MasterDataContext())
+            using (var db = new MasterContext())
             {
-                var eventTitle = new Event { EventTitle = EventTitle.Text };
-                db.Events.Add(eventTitle);
-                db.SaveChanges();
-
-                var eventDescription = new Event { EventDescription = EventDescription.Text };
-                db.Events.Add(eventDescription);
-                db.SaveChanges();
-
-                var eventDatePicker = new Event { EventDatePicker = EventDatePicker.Date };
-                db.Events.Add(eventDatePicker);
-                db.SaveChanges();
-
-                var eventTimePicker = new Event { EventTimePicker = EventTimePicker.Time };
-                db.Events.Add(eventTimePicker);
-                db.SaveChanges();
-
-                var eventInkNote_FilePath = new Event { EventInkNote_FilePath = EventInkNote.InkPresenter };
-                db.Events.Add(eventInkNote_FilePath);
-                db.SaveChanges();
 
             }
-              
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             NavigateBack_Button.IsEnabled = this.Frame.CanGoBack;
         }
+
+
 
         private void NavigateBack_Click(object sender, RoutedEventArgs e)
         {
@@ -94,7 +85,7 @@ namespace CosmosStudentPlanner
             return false;
         }
 
-        private void BackInvoked (KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        private void BackInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
         {
             On_BackRequested();
             args.Handled = true;
@@ -102,7 +93,41 @@ namespace CosmosStudentPlanner
 
         private void EventType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
+        }
+
+
+
+        private void DeviceOnDeviceLost(CanvasDevice sender, object args)
+        {
+            Debug.WriteLine("DeviceOnDeviceLost");
+        }
+
+
+
+        private void Create_Event_Click(object sender, RoutedEventArgs e)
+        {
+
+            CanvasDevice device = CanvasDevice.GetSharedDevice();
+            CanvasRenderTarget renderTarget = new CanvasRenderTarget(device, (int)EventInkNote.ActualWidth, (int)EventInkNote.ActualHeight, 96);
+
+            using (var ds = renderTarget.CreateDrawingSession())
+            {
+                ds.Clear(Colors.White);
+                ds.DrawInk(EventInkNote.InkPresenter.StrokeContainer.GetStrokes());
+            }
+
+            using (var db = new MasterContext())
+            {
+                
+            }
+
+
         }
     }
 }
+
+            
+    
+
+

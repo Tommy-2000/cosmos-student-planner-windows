@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
-using CosmosStudentPlanner.ViewModels;
+using CosmosStudentPlanner.Model;
 
 namespace CosmosStudentPlanner
 {
@@ -58,6 +58,14 @@ namespace CosmosStudentPlanner
         private void CreateReminderPageNavigate_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CreateReminderPage));
+        }
+
+        private void MyReminders_Loaded(object sender, RoutedEventArgs e)
+        {
+            using (var db = new MasterContext())
+            {
+              
+            }
         }
 
     }

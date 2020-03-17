@@ -7,18 +7,39 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:appmodel="using:Windows.ApplicationModel"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:Windows10version1803="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 6)"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    mc:Ignorable="d">
 
-    <Grid>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+  
+        <Border x:Name="AppTitleBar"
+                Grid.Column="1"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Canvas.ZIndex="1">
+            <TextBlock x:Name="AppTitle"
+                       Text="Cosmos Student Planner"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Style="{StaticResource CaptionTextBlockStyle}" />
+        </Border>
+
+
         <NavigationView x:Name="NavViewControl"
                             ItemInvoked="NavViewControl_ItemInvoked"
-                            BackRequested="NavViewControl_BackRequested"
-                            IsBackEnabled="{Binding ElementName=MasterFrame, Path=CanGoBack}"
-                            Header="Hello!"
+                            Windows10version1803:BackRequested="NavViewControl_BackRequested"
+                            Windows10version1803:IsBackEnabled="{Binding ElementName=MasterFrame, Path=CanGoBack}"
+                            Canvas.ZIndex="0"
+                            Header=" "
+                            Windows10version1803:PaneOpening="NavViewControl_PaneOpened"
+                            Windows10version1803:PaneClosing="NavViewControl_PaneClosing"
                             IsTabStop="False"
                             Height="1000"
-                            PaneDisplayMode="Left">
+                            Windows10version1809:PaneDisplayMode="Left"
+                            CompactModeThresholdWidth="0">
                 <NavigationView.MenuItems>
                     <NavigationViewItem Tag="MyCalendar" Icon="Calendar" Content="My Calendar" />
                     <NavigationViewItem Tag="MyLessons" Content="My Lessons">
@@ -34,16 +55,9 @@
                     <NavigationViewItem Tag="MyReminders" Icon="Clock" Content="My Reminders" />
                 </NavigationView.MenuItems>
 
-                <Frame x:Name="MasterFrame" Padding="12,0,12,24"
-                   NavigationFailed="MasterFrame_NavigationFailed" Height="900">
-                    <Frame.ContentTransitions>
-                        <TransitionCollection>
-                            <NavigationThemeTransition />
-                        </TransitionCollection>
-                    </Frame.ContentTransitions>
-                </Frame>
+            <Frame x:Name="MasterFrame" NavigationFailed="MasterFrame_NavigationFailed"/>
 
-                <VisualStateManager.VisualStateGroups>
+            <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState>
                             <VisualState.StateTriggers>
@@ -52,13 +66,13 @@
                             </VisualState.StateTriggers>
                             <VisualState.Setters>
                                 <!-- Leave the next line for left-only navigation. -->
-                                <Setter Target="MasterFrame.Padding" Value="0,0,0,0" />
+                            <Setter Target="MasterFrame.Padding" Value="24,0,24,24" />
+                            <Setter Target="NavViewControl.PaneDisplayMode" Value="LeftCompact" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
             </NavigationView>
 
-        <TextBlock x:Name="AppTitleBar" Style="{StaticResource CaptionTextBlockStyle}" Margin="12,8" />
     </Grid>
 </Page>

@@ -8,31 +8,50 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="107*"/>
-            <ColumnDefinition Width="393*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Button x:Name="NavigateBack_Button" Click="NavigateBack_Click" VerticalAlignment="Top" HorizontalAlignment="Left" 
+Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="1500" Grid.ColumnSpan="2" Margin="0,0,0,0" VerticalAlignment="Stretch">
+            <StackPanel x:Name="EventDetailsPanel"
+                        Margin="0,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="1000"
+                        Width="750"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch">
+                <TextBlock x:Name="HeaderTitle" Text="Event Details" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBlock x:Name="EventTitle" Text="Event Title" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                <TextBlock x:Name="EventDescription" Text="Event Description" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock x:Name="EventType" Text="Event Type" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock x:Name="EventDate" Text="Event Date" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock x:Name="EventTime" Text="Event Time" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 
 
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup>
-                    <VisualState>
-                        <VisualState.Setters>
-                            <!-- Leave the next line for left-only navigation. -->
-                            <Setter Target="MasterFrame.Padding" Value="0,0,0,0"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-        </StackPanel>
+            </StackPanel>
+            <Grid>
+                <StackPanel Name="EventInkImagePanel"
+                        Margin="0,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="1000"
+                        Width="750"
+                        HorizontalAlignment="Left">
+                    <Image x:Name="EventInkImage" Width="650" Height="700" Stretch="None"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

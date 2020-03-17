@@ -1,6 +1,7 @@
 ﻿using CosmosStudentPlanner;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -9,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,6 +18,13 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+
+
+using CosmosStudentPlanner.Model;
+using CalendarControl.Models;
+using System.Threading.Tasks;
+using CalendarControl.ViewModels;
+using CalendarControl.Interfaces;
 
 namespace CosmosStudentPlanner
 {
@@ -57,5 +66,14 @@ namespace CosmosStudentPlanner
             this.Frame.Navigate(typeof(CreateLessonPage));
         }
 
-    }
-}
+        private void MyLessons_Loaded(object sender, RoutedEventArgs e)
+        {
+            using (var db = new MasterContext())
+            {
+            }
+
+        }
+
+    }  
+}      
+

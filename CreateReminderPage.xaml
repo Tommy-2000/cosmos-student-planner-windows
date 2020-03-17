@@ -45,7 +45,7 @@ Style="{StaticResource NavigationBackButtonNormalStyle}"/>
                       SelectionChanged="ReminderFrequency_SelectionChanged">
             </ComboBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Create Reminder" Margin="0,48,0,0" Click="CreateEventButton_Click"/>
+                <Button Content="Create Reminder" Margin="0,48,0,0" Click="CreateReminderButton_Click"/>
             </StackPanel>
         </StackPanel>
         

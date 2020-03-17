@@ -13,9 +13,25 @@
         <Button x:Name="NavigateBack_Button" Click="NavigateBack_Click" VerticalAlignment="Top" HorizontalAlignment="Left" 
 Style="{StaticResource NavigationBackButtonNormalStyle}"/>
 
-        <StackPanel>
-            <TextBlock Text="Add Lesson" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
-            <TextBox x:Name="LessonName"
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="AddLessonSide"
+                        Margin="0,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="1000"
+                        Width="750"
+                        HorizontalAlignment="Right">
+                <TextBlock Text="Add Lesson" HorizontalAlignment="Right" Margin="0,24,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBox x:Name="LessonName"
                      Header="Lesson Name"
                      Margin="0,48,0,0"
                      MaxLength="42"
@@ -23,7 +39,7 @@ Style="{StaticResource NavigationBackButtonNormalStyle}"/>
                      HorizontalAlignment="Right"
                      InputScope="Text"
                      IsSpellCheckEnabled="True"/>
-            <TextBox x:Name="TeacherName"
+                <TextBox x:Name="TeacherName"
                      Header="Teacher Name"
                      Margin="0,48,0,0"
                      MaxLength="42"
@@ -31,14 +47,14 @@ Style="{StaticResource NavigationBackButtonNormalStyle}"/>
                      HorizontalAlignment="Right"
                      InputScope="Text"
                      IsSpellCheckEnabled="True"/>
-            <TimePicker x:Name="LessonTime"
+                <TimePicker x:Name="LessonTime"
                         Header="Lesson Time"
                         MinuteIncrement="15"
                         ClockIdentifier="24HourClock"
                         Margin="0,48,0,0"
                         Width="400"
                         HorizontalAlignment="Right"/>
-            <TextBox x:Name="RoomName"
+                <TextBox x:Name="RoomName"
                      Header="Room Name"
                      Margin="0,48,0,0"
                      MaxLength="42"
@@ -46,10 +62,11 @@ Style="{StaticResource NavigationBackButtonNormalStyle}"/>
                      HorizontalAlignment="Right"
                      InputScope="Text"
                      IsSpellCheckEnabled="True"/>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Add Lesson" Margin="0,48,0,0" Click="AddLessonButton_Click"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Add Lesson" Margin="0,48,0,0" Click="Create_Lesson_Click"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Page>

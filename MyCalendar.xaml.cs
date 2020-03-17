@@ -10,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
+using CosmosStudentPlanner.Model;
 
 namespace CosmosStudentPlanner
 {
@@ -33,6 +35,7 @@ namespace CosmosStudentPlanner
         {
             this.InitializeComponent();
             this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            this.DataContext = new CalendarItemsViewModel();
 
             string appName = Windows.ApplicationModel.Package.Current.DisplayName;
 
@@ -54,7 +57,13 @@ namespace CosmosStudentPlanner
 
         }
 
-     
+
+
+        private void CreateEventPageNavigate_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CreateEventPage));
+        }
+
 
         public class CalendarItems
         {
@@ -79,36 +88,43 @@ namespace CosmosStudentPlanner
         }
 
 
-
-        public class EventItems
+        private void CV_OnCalendarViewDayItemChanging(CalendarView sender, CalendarViewDayItemChangingEventArgs args)
         {
-            public string EVTitle { get; set; }
-            public string EVDate { get; set; }
-            public string EVCategory { get; set; }
-        }
-
-        public class EventItemsViewModel
-        {
-            private ObservableCollection<EventItems> eventItems = new ObservableCollection<EventItems>();
-            public ObservableCollection<EventItems> EventItems { get { return this.eventItems; } }
-
-            public EventItemsViewModel()
+            var textBlock = FindFirstChildOfType<TextBlock>(args.Item);
+            if (textBlock != null)
             {
-                for (int i = 1; i < 150000; i++)
-                {
-                    this.eventItems.Add(new EventItems()
-                    {
-                        EVTitle = "Event Title " + i.ToString(),
-                        EVDate = "Event Date " + i.ToString(),
-                        EVCategory = "Event Category " + i.ToString()
-                    });
-                }
+                textBlock.HorizontalAlignment = HorizontalAlignment.Left;
+                textBlock.VerticalAlignment = VerticalAlignment.Top;
+                textBlock.Margin = new Thickness(12);
+                textBlock.FontSize = 26;
+                textBlock.FontWeight = FontWeights.Light;
             }
         }
 
-        private void MasterFrame_NavigationFailed(object sender, Windows.UI.Xaml.Navigation.NavigationFailedEventArgs e)
+        private T FindFirstChildOfType<T>(DependencyObject control) where T : DependencyObject
         {
-
+            var childrenCount = VisualTreeHelper.GetChildrenCount(control);
+            for (int childIndex = 0; childIndex < childrenCount; childIndex++)
+            {
+                var child = VisualTreeHelper.GetChild(control, childIndex);
+                if (child is T typedChild)
+                {
+                    return typedChild;
+                }
+            }
+            return null;
         }
+
+        private void MyCalendar_Loaded(object sender, RoutedEventArgs e)
+        {
+            using (var db = new MasterContext())
+            {
+
+            }
+                       
+        }
+
+        
+
     }
 }

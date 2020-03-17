@@ -5,12 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,18 +27,30 @@ namespace CosmosStudentPlanner
     public sealed partial class App_Root : Page
     {
 
+        public static App_Root Current;
         public static Frame RootFrame = null;
-
         private bool _isKeyboardConnected;
         public VirtualKey ArrowKey;
+        
 
         public App_Root()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+       
 
-            string appName = Windows.ApplicationModel.Package.Current.DisplayName;
-            AppTitleBar.Text = appName;
+            Current = this;
+            MasterFrame.Navigate(typeof(My_Calendar));
+            NavViewControl.Header = "My Calendar";
+
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle(s);
+
+            void UpdateAppTitle(CoreApplicationViewTitleBar coreTitleBar)
+            {
+                var full = (ApplicationView.GetForCurrentView().IsFullScreenMode);
+                var left = 12 + (full ? 0 : coreTitleBar.SystemOverlayLeftInset);
+                AppTitle.Margin = new Thickness(left, 8, 0, 0);
+                AppTitleBar.Height = coreTitleBar.Height;
+            }
 
             // Add keyboard accelerators for backwards navigation.
             KeyboardAccelerator GoBack = new KeyboardAccelerator
@@ -55,8 +69,10 @@ namespace CosmosStudentPlanner
             _isKeyboardConnected = Convert.ToBoolean(new KeyboardCapabilities().KeyboardPresent);
 
         }
-      
-      
+
+        
+
+
         private NavigationViewItem navigationViewItem;
 
 
@@ -90,6 +106,7 @@ namespace CosmosStudentPlanner
             if (!NavigateToView(clickedView)) return;
             navigationViewItem = item;
         }
+         
 
 
         private bool NavigateToView(string clickedView)
@@ -104,6 +121,8 @@ namespace CosmosStudentPlanner
 
             MasterFrame.Navigate(view, null, new EntranceNavigationTransitionInfo());
             return true;
+
+
         }
 
         // Handles system-level BackRequested events and page-level events
@@ -112,6 +131,25 @@ namespace CosmosStudentPlanner
             if (MasterFrame.CanGoBack)
                 MasterFrame.GoBack();
 
+        }
+
+
+        private void NavViewControl_PaneOpened(NavigationView sender, object args)
+        {
+            AppTitle.Visibility = Visibility.Collapsed;
+        }
+
+        private void NavViewControl_PaneClosing(NavigationView sender, object args)
+        {
+            AppTitle.Visibility = Visibility.Visible;
+            if (sender.DisplayMode == NavigationViewDisplayMode.Expanded)
+            {
+                AppTitleBar.Margin = new Thickness(40, 0, 0, 0);
+            }
+            else
+            {
+                AppTitleBar.Margin = new Thickness();
+            }
         }
 
 
@@ -128,7 +166,14 @@ namespace CosmosStudentPlanner
             {
 
             }
-        }
-       
+        }       
     }
+                        
+    public enum DeviceType
+    {
+        Desktop,
+        Other,
+        Xbox
+    }
+
 }

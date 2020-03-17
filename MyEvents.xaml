@@ -8,195 +8,221 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:appmodel="using:Windows.ApplicationModel"
     mc:Ignorable="d"
-    Loaded="Page_Loaded">
+    NavigationCacheMode="Enabled"
+    Loaded="MyEvents_Loaded"
+    Background="Aquamarine">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid x:Name="FrameGrid"
+              Height="Auto"
+              Width="Auto"
+              Margin="30,50,30,0"
+              VerticalAlignment="Stretch">
+
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="107*"/>
-            <ColumnDefinition Width="393*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="1500" Grid.ColumnSpan="2" Margin="0,0,0,0" VerticalAlignment="Stretch">
-            <Grid x:Name="FrameGrid" Background="Transparent">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="750"/>
-                        </Grid.RowDefinitions>
-
-                        <StackPanel x:Name="HomeworkFrame" Grid.Column="0" Grid.Row="0" Padding="20" Height="750" Width="300" Orientation="Vertical" Margin="0,50,10,0" Background="DarkRed">
-                            <StackPanel x:Name="HeaderContainer" Height="75" Width="275" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
-                                <TextBlock x:Name="HomeworkHeader" Text="Homework" Foreground="White" FontSize="30" TextAlignment="Left" Margin="0,0,40,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                <Button x:Name="AddHomeworkEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="White" Background="DodgerBlue" HorizontalAlignment="Right"/>
-                        <ListView Name="HomeworkEvents"
+        <Viewbox x:Name="HomeworkFrame" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel Padding="20" Height="750" Width="350" Orientation="Vertical" Margin="0,50,10,0" Background="DarkRed">
+                <StackPanel x:Name="HeaderContainer" Height="75" Width="315" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock x:Name="HomeworkHeader" Text="Homework" Foreground="White" FontSize="30" TextAlignment="Left" Margin="0,0,50,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Button x:Name="AddHomeworkEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="White" Background="DodgerBlue" HorizontalAlignment="Right"/>
+                    <ListView Name="HomeworkEvents"
+                      IsItemClickEnabled="True"
+                      IsSwipeEnabled="False"
                       CanDragItems="True"
                       CanReorderItems="True"
                       CanDrag="True"
                       AllowDrop="True"
+                      ScrollViewer.VerticalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                       Height="750"
                       Width="300"
                       BorderBrush="DimGray">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,0,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" MinWidth="150"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Margin="12,0,0,0" Grid.Column="1" >
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </StackPanel>
-
-                <StackPanel x:Name="MeetingsFrame" Grid.Column="1" Grid.Row="0" Padding="20" Height="750" Width="300" Orientation="Vertical" Margin="0,50,10,0" Background="SpringGreen">
-                            <StackPanel x:Name="HeaderContainer2" Height="75" Width="275" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
-                                <TextBlock x:Name="MeetingsHeader" Text="Meetings" FontSize="30" Foreground="Black" TextAlignment="Left" Margin="0,0,40,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Button x:Name="AddMeetingEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="White" Background="DodgerBlue" HorizontalAlignment="Right"/>
-                        <ListView Name="MeetingsEvents"
-                      CanDragItems="True"
-                      CanReorderItems="True"
-                      CanDrag="True"
-                      AllowDrop="True"
-                      Height="750"
-                      Width="300"
-                      BorderBrush="DimGray">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,0,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" MinWidth="150"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <StackPanel Margin="12,0,0,0" Grid.Column="1" >
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="12,0,0,0" Grid.Column="1" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Button x:Name="RemoveEventButton" Grid.Column="1" Height="30" Width="40" HorizontalAlignment="Right">
+                                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8BB;"/>
+                                            </Button>
+                                        </Grid>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
                                         </StackPanel>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
 
-                        <StackPanel x:Name="ActivitiesFrame" Grid.Column="2" Grid.Row="0" Padding="20" Height="750" Width="300" Orientation="Vertical" Margin="0,50,10,0" Background="DodgerBlue">
-                            <StackPanel x:Name="HeaderContainer3" Height="75" Width="275" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
-                                <TextBlock x:Name="ActivitiesHeader" Text="Activities" FontSize="30" Foreground="Black" TextAlignment="Left" Margin="0,0,40,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Button x:Name="AddActivitiesEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="Black" Background="White" HorizontalAlignment="Right"/>
-                        <ListView Name="ActivitiesEvents"
+
+        <Viewbox x:Name="MeetingsFrame" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel Padding="20" Height="750" Width="350" Orientation="Vertical" Margin="0,50,10,0" Background="MediumSeaGreen">
+                <StackPanel x:Name="HeaderContainer2" Height="75" Width="315" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock x:Name="MeetingsHeader" Text="Meetings" FontSize="30" TextAlignment="Left" Margin="0,0,50,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Button x:Name="AddMeetingEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="White" Background="DodgerBlue" HorizontalAlignment="Right"/>
+                    <ListView Name="MeetingsEvents"
+                      IsItemClickEnabled="True"
+                      IsSwipeEnabled="False"
                       CanDragItems="True"
                       CanReorderItems="True"
                       CanDrag="True"
                       AllowDrop="True"
+                      ScrollViewer.VerticalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                       Height="750"
                       Width="300"
                       BorderBrush="DimGray">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,0,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" MinWidth="150"/>
-                                                </Grid.ColumnDefinitions>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="150"/>
+                                    </Grid.ColumnDefinitions>
 
-                                                <StackPanel Margin="12,0,0,0" Grid.Column="1" >
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
+                                    <StackPanel Margin="12,0,0,0" Grid.Column="1" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
                                         </StackPanel>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
 
-                        <StackPanel x:Name="PersonalFrame" Grid.Column="3" Grid.Row="0" Padding="20" Height="750" Width="300" Orientation="Vertical" Margin="0,50,10,0" Background="Purple">
-                            <StackPanel x:Name="HeaderContainer4" Height="75" Width="275" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
-                                <TextBlock x:Name="PersonalHeader" Text="Personal" FontSize="30" TextAlignment="Left" Margin="0,0,40,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Button x:Name="AddPersonalEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="White" Background="DodgerBlue" HorizontalAlignment="Right"/>
-                        <ListView Name="PersonalEvents"
+        <Viewbox x:Name="ActivitiesFrame" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel Padding="20" Height="750" Width="350" Orientation="Vertical" Margin="0,50,10,0" Background="MidnightBlue">
+                <StackPanel x:Name="HeaderContainer3" Height="75" Width="315" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock x:Name="ActivitiesHeader" Text="Activities" FontSize="30" TextAlignment="Left" Margin="0,0,50,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Button x:Name="AddActivityEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="Black" Background="White" HorizontalAlignment="Right"/>
+                    <ListView Name="ActivityEvents"
+                      IsItemClickEnabled="True"
+                      IsSwipeEnabled="False"
                       CanDragItems="True"
                       CanReorderItems="True"
                       CanDrag="True"
                       AllowDrop="True"
+                      ScrollViewer.VerticalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                       Height="750"
                       Width="300"
                       BorderBrush="DimGray">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,0,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" MinWidth="150"/>
-                                                </Grid.ColumnDefinitions>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="150"/>
+                                    </Grid.ColumnDefinitions>
 
-                                                <StackPanel Margin="12,0,0,0" Grid.Column="1" >
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
-                                            </StackPanel>
+                                    <StackPanel Margin="12,0,0,0" Grid.Column="1" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
                                         </StackPanel>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
 
-                    </Grid>
-        </StackPanel>
+        <Viewbox x:Name="PersonalFrame" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel Padding="20" Height="750" Width="350" Orientation="Vertical" Margin="0,50,10,0" Background="Purple">
+                <StackPanel x:Name="HeaderContainer4" Height="75" Width="315" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock x:Name="PersonalHeader" Text="Personal" FontSize="30" TextAlignment="Left" Margin="0,0,50,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Button x:Name="AddPersonalEvent_Button" Click="CreateEventPageNavigate_Click" Content="Add Event" Foreground="White" Background="DodgerBlue" HorizontalAlignment="Right"/>
+                    <ListView Name="PersonalEvents"
+                      IsItemClickEnabled="True"
+                      IsSwipeEnabled="False"
+                      CanDragItems="True"
+                      CanReorderItems="True"
+                      CanDrag="True"
+                      AllowDrop="True"
+                      ScrollViewer.VerticalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      Height="750"
+                      Width="300"
+                      BorderBrush="DimGray">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="150"/>
+                                    </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="AppTitleBar" Style="{StaticResource CaptionTextBlockStyle}" Margin="12,8"/>
+                                    <StackPanel Margin="12,0,0,0" Grid.Column="1" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTitle" Text="{Binding EventTitle}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDescription" Text="{Binding EventDescription}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventDate" Text="{Binding EventDatePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="EventTime" Text="{Binding EventTimePicker}" FontFamily="Segoe UI" FontSize="24" FontWeight="SemiBold" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Left" Margin="0,0,0,6" LineHeight="20"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
     </Grid>
 </Page>

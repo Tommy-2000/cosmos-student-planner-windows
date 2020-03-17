@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using CosmosStudentPlanner.MasterDataModel;
+using CosmosStudentPlanner.Model;
 
 namespace CosmosStudentPlanner
 {
@@ -37,7 +37,7 @@ namespace CosmosStudentPlanner
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            using (var db = new MasterDataContext())
+            using (var db = new MasterContext())
             {
                 db.Database.Migrate();
             }
@@ -51,11 +51,12 @@ namespace CosmosStudentPlanner
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            Windows.Storage.StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+            System.Diagnostics.Debug.WriteLine("Local: " + local.Path);
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -86,8 +87,8 @@ namespace CosmosStudentPlanner
                 Window.Current.Activate();
             }
 
-            CoreApplicationViewTitleBar titleBar;
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
 
         }
 
@@ -122,6 +123,33 @@ namespace CosmosStudentPlanner
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = ((Frame)sender).CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
+
+       
+
+        private Frame GetRootFrame()
+        {
+            Frame rootFrame;
+            if (!(Window.Current.Content is App_Root rootPage))
+            {
+                rootPage = new App_Root();
+                rootFrame = (Frame)rootPage.FindName("rootFrame");
+                if (rootFrame == null)
+                {
+                    throw new Exception("Root frame not found");
+                }
+                rootFrame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                Window.Current.Content = rootPage;
+            }
+            else
+            {
+                rootFrame = (Frame)rootPage.FindName("rootFrame");
+            }
+
+            return rootFrame;
+        }
+
 
         /// <summary>
         /// Invoked when Navigation to a certain page fails
