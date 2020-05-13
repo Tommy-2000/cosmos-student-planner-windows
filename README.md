@@ -29,7 +29,7 @@ public CreateEventPage()
 
 This application also made use of Entity Framework Core as a means of data management. In this case, each lesson and event that is added to the app, will be recorded in a new local SQLite database that has been created using EF migrations and data-modeling using C# objects (See example below).
 
-```
+```c#
 
 public class MasterContext : DbContext
     {
